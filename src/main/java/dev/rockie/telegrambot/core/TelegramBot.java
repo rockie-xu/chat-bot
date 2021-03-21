@@ -2,7 +2,9 @@ package dev.rockie.telegrambot.core;
 
 import dev.rockie.telegrambot.handlers.UpdateHandler;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBot extends TelegramLongPollingBot {
 
@@ -24,7 +26,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        updateHandler.handle(update);
+//        updateHandler.handle(update);
+        sendMsg(update, "step 1: set the date");
+        sendMsg(update, java.time.LocalDate.now().toString());
+    }
+
+    private void sendMsg(Update update, String setText) {
+        SendMessage message = new SendMessage();
+        message.setChatId(update.getMessage().getChatId().toString());
+        message.setText(setText);
+
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
 }
