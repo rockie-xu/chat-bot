@@ -1,4 +1,4 @@
-package dev.rockie.telegrambot;
+package dev.rockie.telegrambot.core;
 
 import java.io.IOException;
 import java.io.InputStream;

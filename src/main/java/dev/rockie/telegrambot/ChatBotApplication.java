@@ -1,6 +1,6 @@
 package dev.rockie.telegrambot;
 
-import dev.rockie.telegrambot.controller.TelegramBot;
+import dev.rockie.telegrambot.core.TelegramBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
