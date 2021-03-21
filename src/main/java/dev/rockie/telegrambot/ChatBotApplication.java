@@ -1,6 +1,6 @@
-package dev.rockie.chatbot;
+package dev.rockie.telegrambot;
 
-import dev.rockie.chatbot.controller.ChatbotController;
+import dev.rockie.telegrambot.controller.TelegramBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -11,7 +11,7 @@ public class ChatBotApplication {
 
         try {
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
-            botsApi.registerBot(new ChatbotController());
+            botsApi.registerBot(new TelegramBot());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }

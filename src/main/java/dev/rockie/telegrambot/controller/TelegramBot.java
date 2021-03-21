@@ -1,5 +1,6 @@
-package dev.rockie.chatbot.controller;
+package dev.rockie.telegrambot.controller;
 
+import dev.rockie.telegrambot.ConfigReader;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -13,17 +14,20 @@ import java.util.List;
 
 import static java.lang.Math.toIntExact;
 
-public class ChatbotController extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramLongPollingBot {
+
+    private static final ConfigReader CONFIG = ConfigReader.getInstance();
+    public static final String TELEGRAM_BOT_USERNAME = CONFIG.get("telegram.bot.username");
+    public static final String TELEGRAM_BOT_TOKEN = CONFIG.get("telegram.bot.token");
 
     @Override
     public String getBotUsername() {
-        return "LearnCapitals_Bot";
+        return TELEGRAM_BOT_USERNAME;
     }
 
     @Override
     public String getBotToken() {
-
-        return null;
+        return TELEGRAM_BOT_TOKEN;
     }
 
     @Override
@@ -61,16 +65,17 @@ public class ChatbotController extends TelegramLongPollingBot {
             } else {
 
             }
-        } else if(update.hasCallbackQuery()) {
+        } else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
             long message_id = update.getCallbackQuery().getMessage().getMessageId();
+            String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
 
             if (call_data.equals("update_msg_text")) {
                 String answer = "Updated message text";
                 EditMessageText new_message = new EditMessageText();
 
-                new_message.setChatId(update.getMessage().getChatId().toString());
+                new_message.setChatId(chatId);
                 new_message.setMessageId(toIntExact(message_id));
                 new_message.setText(answer);
 
